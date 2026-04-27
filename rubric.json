@@ -1,0 +1,122 @@
+{
+  "assignment": "1.4 — Fruit Sorting / Classification",
+  "total_points": 40,
+  "grading_note": "This is a THEORETICAL assignment. Students describe the process in writing — no actual coding or manual sorting required. Rubric criteria for 'Implementation Process' and 'Results and Outcomes' should be interpreted as documentation of the theoretical process and expected/predicted outcomes, not actual computed results.",
+  "criteria": [
+    {
+      "id": "method_selection",
+      "name": "Method Selection and Justification",
+      "max_points": 10,
+      "levels": {
+        "excellent": {
+          "points": 10,
+          "description": "Comprehensive understanding of the chosen method (Decision Tree or K-means) with detailed explanation of its principles and appropriateness for the specific dataset. Justification includes thoughtful analysis of why this method effectively facilitated the sorting/classification with specific examples."
+        },
+        "competent": {
+          "points": 9,
+          "description": "Demonstrates good understanding of the chosen method with clear explanation of its principles. Justification includes solid reasoning for why the method was effective with some specific examples."
+        },
+        "needs_improvement": {
+          "points": 8,
+          "description": "Demonstrates basic understanding of the chosen method with limited explanation of principles. Justification for effectiveness is present but lacks depth or specific examples."
+        },
+        "inadequate": {
+          "points": 6,
+          "description": "Shows minimal understanding of the chosen method. Justification is missing, severely flawed, or demonstrates fundamental misconceptions about the method's effectiveness."
+        }
+      }
+    },
+    {
+      "id": "implementation_process",
+      "name": "Implementation Process",
+      "max_points": 10,
+      "levels": {
+        "excellent": {
+          "points": 10,
+          "description": "Documents implementation process with exceptional clarity and technical accuracy. Includes comprehensive details of parameter settings, preprocessing steps, and implementation challenges with solutions. Process documentation demonstrates mastery of the method's application to the dataset."
+        },
+        "competent": {
+          "points": 9,
+          "description": "Documents implementation process with good clarity and accuracy. Includes most key details of parameter settings and preprocessing steps. Process documentation demonstrates solid understanding of method application."
+        },
+        "needs_improvement": {
+          "points": 8,
+          "description": "Documents basic implementation process but lacks some important details or contains minor technical inaccuracies. Process documentation demonstrates partial understanding of method application."
+        },
+        "inadequate": {
+          "points": 6,
+          "description": "Implementation process documentation is missing, severely incomplete, or contains major technical errors. Shows minimal understanding of method application."
+        }
+      }
+    },
+    {
+      "id": "results_outcomes",
+      "name": "Results and Outcomes",
+      "max_points": 10,
+      "levels": {
+        "excellent": {
+          "points": 10,
+          "description": "Presents comprehensive documentation of classification/sorting results with detailed metrics appropriate to the chosen method. Includes thoughtful interpretation of outcomes with specific insights about dataset patterns and classification/sorting effectiveness."
+        },
+        "competent": {
+          "points": 9,
+          "description": "Presents good documentation of results with appropriate metrics. Includes clear interpretation with some specific insights about outcomes and effectiveness."
+        },
+        "needs_improvement": {
+          "points": 8,
+          "description": "Presents basic documentation of results with limited metrics. Interpretation is present but lacks depth or specific insights about outcomes."
+        },
+        "inadequate": {
+          "points": 6,
+          "description": "Results documentation is missing, severely underdeveloped, or technically inaccurate. No meaningful interpretation of outcomes."
+        }
+      }
+    },
+    {
+      "id": "instructions_quality",
+      "name": "Instructions Quality",
+      "max_points": 6,
+      "levels": {
+        "excellent": {
+          "points": 6,
+          "description": "Provides exceptionally clear, comprehensive step-by-step instructions in plain English that could be followed by others. Logical decision points and criteria are explicitly identified with excellent explanations. Instructions demonstrate perfect balance between technical accuracy and accessibility."
+        },
+        "competent": {
+          "points": 5,
+          "description": "Provides clear step-by-step instructions that are mostly followable. Logical decision points and criteria are identified with good explanations. Instructions demonstrate good balance between technical accuracy and accessibility."
+        },
+        "needs_improvement": {
+          "points": 4,
+          "description": "Provides basic instructions but some steps may be unclear or assume prior knowledge. Some decision points or criteria may be inadequately explained. Limited accessibility for non-technical readers."
+        },
+        "inadequate": {
+          "points": 3,
+          "description": "Instructions are missing, severely incomplete, or too technical/confusing for the intended audience. Decision points and criteria are not identified."
+        }
+      }
+    },
+    {
+      "id": "documentation_presentation",
+      "name": "Documentation and Presentation",
+      "max_points": 4,
+      "levels": {
+        "excellent": {
+          "points": 4,
+          "description": "Documentation is exceptionally well-organized with clear structure, professional formatting, and excellent writing quality. Visual elements (if included) enhance understanding of the process and results."
+        },
+        "competent": {
+          "points": 3,
+          "description": "Documentation is well-organized with good structure and writing quality. Visual elements (if included) support understanding of the process and results."
+        },
+        "needs_improvement": {
+          "points": 2,
+          "description": "Documentation organization needs improvement and contains several writing errors. Visual elements may be limited or not well-integrated with the text."
+        },
+        "inadequate": {
+          "points": 1,
+          "description": "Documentation is poorly organized and contains numerous errors that severely impact clarity. Visual elements are missing or ineffective."
+        }
+      }
+    }
+  ]
+}

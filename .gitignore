@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+grades_log.csv
+.env
