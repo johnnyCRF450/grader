@@ -1,68 +1,80 @@
 """
-Feedback Generator Agent — produces a motivational, personalized grade report
-combining the score breakdown with constructive and encouraging commentary.
+Feedback Agent — generates a motivational, personalized grade report.
+Incorporates XAI transparency (explains score reasoning) and RAI notes.
 """
 
-import json
 import anthropic
 
 
-def generate_feedback(
+def generate(
     client: anthropic.Anthropic,
     submission_text: str,
     analysis: str,
     scores: dict,
+    rai_report: dict,
     context: str,
 ) -> str:
-    score_summary = "\n".join(
-        f"  - {s['criterion_name']}: {s['points_awarded']}/{s['max_points']} "
-        f"({s['level_awarded']}) — {s['rationale']}"
+    pct = round(scores["total_points"] / scores["total_possible"] * 100, 1)
+    letter = _letter(pct)
+
+    score_lines = "\n".join(
+        f"  {s['criterion_name']}: {s['points_awarded']}/{s['max_points']} "
+        f"({s['level_awarded']}, confidence={s.get('confidence', '?')})"
+        + (f" [RAI-adjusted from {s.get('original_level','?')}]" if s.get("rai_adjusted") else "")
         for s in scores["scores"]
     )
 
-    pct = round(scores["total_points"] / scores["total_possible"] * 100, 1)
-    letter = _letter_grade(pct)
+    rai_note = ""
+    if rai_report.get("recommended_adjustments"):
+        rai_note = (
+            f"\n\nRAI AUDIT NOTE: {len(rai_report['recommended_adjustments'])} score(s) were adjusted "
+            f"after a fairness review. {rai_report.get('rai_summary', '')}"
+        )
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=1024,
-        system=f"""You are an encouraging, constructive academic instructor grading
-undergraduate student work. Your feedback should:
-- Be warm, specific, and motivating
-- Acknowledge genuine strengths before discussing areas for growth
-- Give concrete, actionable suggestions (not vague advice)
-- Use plain, approachable language
-- Avoid condescension
-- Be appropriate for an adult learner in a technology course
+        max_tokens=1200,
+        system=f"""You are an encouraging, transparent academic instructor grading student work.
+Your feedback should:
+  - Be warm, specific, and genuinely motivating
+  - Reference specific elements from the student's work (not generic praise)
+  - Explain the scoring in plain language (XAI transparency)
+  - Give concrete, actionable suggestions for improvement
+  - Acknowledge if any scores were adjusted for fairness (RAI transparency)
+  - Be professional and appropriate for adult learners in a technology course
+  - Use plain, approachable language — avoid academic jargon in the feedback itself
 
 {context}""",
         messages=[
             {
                 "role": "user",
-                "content": f"""Write a grade report and motivational response for this student.
+                "content": f"""Write a grade report and motivational response.
 
 SCORE BREAKDOWN:
-{score_summary}
+{score_lines}
 Total: {scores['total_points']}/{scores['total_possible']} ({pct}% — {letter})
+{rai_note}
 
 SUBMISSION ANALYSIS:
 {analysis}
 
-Write:
-1. A brief opening that acknowledges their work positively
-2. STRENGTHS: 2-3 specific things they did well (with examples from their work)
-3. AREAS FOR GROWTH: 2-3 specific, actionable improvements
-4. FINAL GRADE: {scores['total_points']}/{scores['total_possible']} ({pct}% — {letter})
-5. A closing motivational sentence
+Structure your response as follows:
+1. Opening (1-2 sentences acknowledging their work positively)
+2. STRENGTHS (2-3 specific things done well, with references to their actual work)
+3. AREAS FOR GROWTH (2-3 specific, actionable improvements with "how-to" guidance)
+4. SCORE EXPLANATION (brief plain-language explanation of the key scoring decisions — XAI transparency)
+5. FINAL GRADE: {scores['total_points']}/{scores['total_possible']} ({pct}% — {letter})
+6. Closing motivational sentence tied to their learning goals
 
-Keep the full response under 400 words. Write in second person ("you", "your work").""",
+Keep the full response under 500 words. Write in second person ("you", "your work").
+If any scores were RAI-adjusted, mention this briefly and positively.""",
             }
         ],
     )
     return response.content[0].text
 
 
-def _letter_grade(pct: float) -> str:
+def _letter(pct: float) -> str:
     if pct >= 93: return "A"
     if pct >= 90: return "A-"
     if pct >= 87: return "B+"

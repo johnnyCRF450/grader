@@ -1,4 +1,6 @@
 __pycache__/
 *.pyc
 grades_log.csv
+grades_store.jsonl
+corrections_store.json
 .env
